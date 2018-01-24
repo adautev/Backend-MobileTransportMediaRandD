@@ -1,7 +1,10 @@
 import os
 
 
-class Config(object):
+class ConfigExample(object):
+    """
+    Rename to config.py and Config(object): (:
+    """
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
