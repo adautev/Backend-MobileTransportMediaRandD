@@ -5,6 +5,10 @@ __pycache__/
 
 # C extensions
 *.so
+#pki stuff
+pki/provisioning/ca
+pki/provisioning/certs
+pki/provisioning/crl./
 
 # Distribution / packaging
 .Python
