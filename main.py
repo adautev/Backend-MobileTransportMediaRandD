@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import base64
 import string
 from random import choice, randint
 
 import datetime
 import jsonpickle as jsonpickle
+from Crypto.Cipher import PKCS1_OAEP, AES
+from Crypto.PublicKey import RSA
 from flask import Flask, Response
 # lame but I don't need more of a migration strategy
 from flask_migrate import Migrate, Manager, MigrateCommand
@@ -34,14 +37,38 @@ def token(product_id, consumer_id):
         if product is None:
             return Response(status=401)
         else:
+            #prepare pki
+            # assumably in a safe place
+            cert = open('pki/provisioning/certs/encryption-certificate.key').read()
+            rsa = RSA.import_key(cert)
+            file_in = open("encrypted_key.bin", "rb")
+            enc_session_key, nonce, tag, ciphertext = \
+                [file_in.read(x) for x in (rsa.size_in_bytes(), 16, 16, -1)]
+
+            # Decrypt the session key with the public RSA key
+            cipher_rsa = PKCS1_OAEP.new(rsa)
+            session_key = cipher_rsa.decrypt(enc_session_key)
+
+            # Decrypt the data with the AES session key
+            cipher_aes = AES.new(session_key, AES.MODE_EAX, nonce)
+            encryption_key = cipher_aes.decrypt_and_verify(ciphertext, tag)
             #lame time prediction. :D Add a few seconds lag.
             valid_from = datetime.datetime.now() + datetime.timedelta(seconds=5)
             valid_to = valid_from + datetime.timedelta(seconds=60)
             issued_token = IssuedToken(product_id=product_id, consumer_id=consumer_id, valid_from = valid_from, valid_to = valid_to)
             db.session.add(issued_token)
-            db.session.delete(product)
             db.session.commit()
-            return Response(jsonpickle.encode(issued_token, unpicklable=False),
+            cipher_aes = AES.new(encryption_key, AES.MODE_EAX)
+            ciphertext= cipher_aes.encrypt(bytes(jsonpickle.encode({
+                "product_id":product_id,
+                "consumer_id":consumer_id,
+                "valid_from":valid_from,
+                "valid_to":valid_to
+            }),'utf8'))
+
+            return Response(jsonpickle.encode({
+                "transport_document": base64.b64encode(ciphertext).decode('ascii'),
+            }, unpicklable=False),
                 mimetype='application/json; charset=utf-8')
     except:
         db.session.rollback()

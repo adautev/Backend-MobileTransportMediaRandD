@@ -1,21 +1,12 @@
 #!/usr/bin/env bash
 #request the server side certificate
 openssl req -new \
-    -config etc/server-side.conf \
-    -out certs/server-side.csr \
-    -keyout certs/server_side.key
-#issue the server side certificate
+    -config etc/encryption-certificate.conf \
+    -out certs/encryption-certificate.csr \
+    -keyout certs/encryption-certificate.key
+#issue the server side certificate (too lazy to change .conf, as I will not be expanding public properties for now)
 openssl ca \
-    -config etc/signing-ca.conf \
-    -in certs/server-side.csr \
-    -out certs/server-side.crt
+    -config etc/encryption-certificate.conf \
+    -in certs/encryption-certificate.csr \
+    -out certs/encryption-certificate.crt
 #request the validator certificate
-openssl req -new \
-    -config etc/validator.conf \
-    -out certs/validator.csr \
-    -keyout certs/validator.key
-#issue the validator certificate
-openssl ca \
-    -config etc/signing-ca.conf \
-    -in certs/validator.csr \
-    -out certs/validator.crt
