@@ -11,3 +11,4 @@ python3 -m virtualenv --python=python3.5 virtualenv
 source virtualenv/bin/activate
 pip3 install -r requirements.txt
 ./virtualenv/bin/flask run --host=0.0.0.0 --port=5000
+#exec chpst -u root DATABASE_URL="postgresql://postgres:adiadi@localhost:5432/adautev" FLASK_APP='FLASK_APP=/var/www/MobileTransportMediaRandD-BackEnd/main.py' /var/www/MobileTransportMediaRandD-BackEnd/venv/bin/flask run --host=0.0.0.0
