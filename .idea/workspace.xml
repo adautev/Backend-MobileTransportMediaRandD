@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afc1e67f-5969-4567-8e63-7d132c7ceaf1" name="Default" comment="Completed simple pki implementation.">
+    <list default="true" id="afc1e67f-5969-4567-8e63-7d132c7ceaf1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/dal/issued_token.py" afterPath="$PROJECT_DIR$/dal/issued_token.py" />
       <change beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change beforePath="$PROJECT_DIR$/pki/provisioning/etc/server-side.conf" afterPath="$PROJECT_DIR$/pki/provisioning/etc/encryption-certificate.conf" />
-      <change beforePath="$PROJECT_DIR$/pki/provisioning/issue_certificates.sh" afterPath="$PROJECT_DIR$/pki/provisioning/issue_certificates.sh" />
-      <change beforePath="$PROJECT_DIR$/pki/provisioning/kdf/derive_keys.py" afterPath="$PROJECT_DIR$/pki/provisioning/kdf/derive_keys.py" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
     </list>
     <ignored path="encrypted_key.bin" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,8 +30,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="131">
+              <caret line="69" column="20" lean-forward="true" selection-start-line="67" selection-start-column="14" selection-end-line="69" selection-end-column="20" />
               <folding>
                 <element signature="e#47#60#0" expanded="true" />
               </folding>
@@ -468,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1516903925965</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Completed simple pki implementation.">
+      <created>1516929121828</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1516929121828</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -502,7 +504,8 @@
     <MESSAGE value="Removed virtualenv from repo. :D" />
     <MESSAGE value="Aded alembic migrations." />
     <MESSAGE value="Started pki implementation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Started pki implementation." />
+    <MESSAGE value="Completed simple pki implementation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed simple pki implementation." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -512,8 +515,13 @@
           <line>19</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>70</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="29" />
+      <option name="time" value="30" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -794,14 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.5/site-packages/Crypto/Cipher/_mode_eax.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8">
-          <caret line="223" column="8" lean-forward="false" selection-start-line="223" selection-start-column="8" selection-end-line="223" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.5/site-packages/Crypto/Protocol/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
@@ -964,10 +964,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.5/site-packages/Crypto/Cipher/_mode_eax.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="322" column="8" lean-forward="false" selection-start-line="322" selection-start-column="8" selection-end-line="322" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        <state relative-caret-position="131">
+          <caret line="69" column="20" lean-forward="true" selection-start-line="67" selection-start-column="14" selection-end-line="69" selection-end-column="20" />
           <folding>
             <element signature="e#47#60#0" expanded="true" />
           </folding>

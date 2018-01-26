@@ -65,9 +65,13 @@ def token(product_id, consumer_id):
                 "valid_from":valid_from,
                 "valid_to":valid_to
             }),'utf8'))
-
+            # nonce = cipher_aes.nonce
+            # cipher_aes = AES.new(encryption_key, AES.MODE_EAX, nonce)
+            # decoded_text = cipher_aes.decrypt(ciphertext)
             return Response(jsonpickle.encode({
                 "transport_document": base64.b64encode(ciphertext).decode('ascii'),
+                "nonce": base64.b64encode(nonce).decode('ascii')
+
             }, unpicklable=False),
                 mimetype='application/json; charset=utf-8')
     except:
