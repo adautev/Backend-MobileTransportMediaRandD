@@ -50,8 +50,8 @@ def token(product_id, consumer_id):
             session_key = cipher_rsa.decrypt(enc_session_key)
 
             # Decrypt the data with the AES session key
-            cipher_aes = AES.new(session_key, AES.MODE_EAX, nonce)
-            encryption_key = cipher_aes.decrypt_and_verify(ciphertext, tag)
+            cipher_aes = AES.new(session_key, AES.MODE_EAX)
+            encryption_key = cipher_aes.decrypt(ciphertext)
             #lame time prediction. :D Add a few seconds lag.
             valid_from = datetime.datetime.now() + datetime.timedelta(seconds=5)
             valid_to = valid_from + datetime.timedelta(seconds=60)
@@ -59,17 +59,20 @@ def token(product_id, consumer_id):
             db.session.add(issued_token)
             db.session.commit()
             cipher_aes = AES.new(encryption_key, AES.MODE_EAX)
-            ciphertext= cipher_aes.encrypt(bytes(jsonpickle.encode({
+            ciphertext, received_tag= cipher_aes.encrypt_and_digest(bytes(jsonpickle.encode({
                 "product_id":product_id,
                 "consumer_id":consumer_id,
                 "valid_from":valid_from,
                 "valid_to":valid_to
             }).encode('utf-8')))
-            # nonce = cipher_aes.nonce
-            # cipher_aes = AES.new(encryption_key, AES.MODE_EAX)
-            # decoded_text = cipher_aes.decrypt(ciphertext)
+            nonce = cipher_aes.nonce
+            # cipher_aes = AES.new(encryption_key, AES.MODE_EAX, nonce)
+            # decoded_text = cipher_aes.decrypt_and_verify(ciphertext, received_tag)
             return Response(jsonpickle.encode({
                 "transport_document": base64.b64encode(ciphertext).decode('ascii'),
+                "tag": base64.b64encode(received_tag).decode('ascii'),
+                "valid_from": valid_from,
+                "valid_to": valid_to,
                 "nonce": base64.b64encode(nonce).decode('ascii')
 
             }, unpicklable=False),
